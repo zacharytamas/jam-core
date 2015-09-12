@@ -8,7 +8,7 @@
       input: {
         type: String
       },
-      output {
+      output: {
         type: String
       }
     },
@@ -18,11 +18,17 @@
     ],
 
     ready: function() {
-      
+      console.log('signal-chain ready');
+    },
+
+    attached: function() {
+      if (this.rig) {
+        this.autowire();
+      }
     },
 
     autowire: function() {
-
+      console.log('signal-chain wiring up');
     }
 
   });
