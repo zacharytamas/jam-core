@@ -1,0 +1,54 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<link rel="import" href="behaviors/jam-rig-discovery.html">
+
+<script>
+  Polymer({
+    is: 'audio-input',
+
+    properties: {
+      name: {
+        type: String
+      },
+      audioUrl: {
+        type: Boolean,
+        value: false
+      },
+      src: String,
+      microphone: {
+        type: Boolean,
+        value: false
+      },
+      stream: Object
+    },
+
+    behaviors: [
+      Jam.Behaviors.JamRigAutoBind
+    ],
+
+    attached: function() {
+      // If we were able to find a JamRig containing this input, register
+      // this input with it.
+      if (this.rig) {
+
+        if (this.microphone) {
+          // TODO Support microphone input.
+        } else if (this.audioUrl) {
+          this.audioEl = document.createElement('audio');
+          this.audioEl.src = this.src;
+          this.audioEl.autoplay = true;
+          this.stream = this.rig.context.createMediaElementSource(this.audioEl);
+        }
+
+        this.rig.addInput(this.name, this);
+
+      }
+    },
+
+    detached: function() {
+      if (this.rig) {
+        this.rig.removeInput(this.name);
+      }
+    }
+  });
+</script>

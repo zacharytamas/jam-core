@@ -1,0 +1,37 @@
+<script>
+  var Jam = window.Jam || (window.Jam = {});
+  var Behaviors = Jam.Behaviors || (Jam.Behaviors = {});
+
+  Behaviors.JamRigDiscovery = {
+
+    /**
+     * Inspects the element's ancestry to return the closest JamRig.
+     * If not contained in a Rig, returns undefined.
+     */
+    _getRig: function() {
+      var parent = Polymer.dom(this).parentNode;
+
+      while (parent && parent.tagName != 'JAM-RIG') {
+        parent = Polymer.dom(parent).parentNode;
+      }
+
+      return parent;
+    }
+
+  };
+
+  Behaviors.JamRigAutoBindImpl = {
+    attached: function() {
+      this.rig = this._getRig();
+    },
+    detached: function() {
+      this.rig = undefined;
+    },
+  };
+
+  Behaviors.JamRigAutoBind = [
+    Behaviors.JamRigDiscovery,
+    Behaviors.JamRigAutoBindImpl
+  ];
+
+</script>

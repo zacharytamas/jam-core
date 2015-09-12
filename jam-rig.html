@@ -1,0 +1,37 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<script>
+  Polymer({
+    is: 'jam-rig',
+
+    properties: {
+      context: Object,
+      inputs: {
+        type: Object,
+        value: function() { return {} }
+      },
+      outputs: {
+        type: Object,
+        value: function() { return {} }
+      }
+    },
+
+    created: function() {
+      if (!this.context) {
+        this.context = new window.AudioContext();
+      }
+    },
+
+    addInput: function(name, input) {
+      this.set('inputs.' + name, input);
+      console.log('jam-rig:', 'New input registered', input);
+
+      input.stream.connect(this.context.destination);
+    },
+
+    removeInput: function(name) {
+      // TODO Implement
+    }
+
+  });
+</script>

@@ -1,0 +1,29 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<script>
+  Polymer({
+    is: 'signal-chain',
+
+    properties: {
+      input: {
+        type: String
+      },
+      output {
+        type: String
+      }
+    },
+
+    behaviors: [
+      Jam.Behaviors.JamRigAutoBind
+    ],
+
+    ready: function() {
+      
+    },
+
+    autowire: function() {
+
+    }
+
+  });
+</script>
